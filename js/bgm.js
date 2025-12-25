@@ -19,10 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 audio.currentTime = 0;
                 audio.volume = 0.7;
                 audio.preload = 'auto';
-                
+
                 // 使用Promise处理播放，确保在GitHub Pages上正常工作
                 const playPromise = audio.play();
-                
+
                 if (playPromise !== undefined) {
                     playPromise.then(() => {
                         isPlaying = true;
@@ -40,35 +40,46 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // 4. 点击圣诞树：触发播放（新用户/自动播放失败）
-    const handleTreeClick = () => {
-        if (isPlaying) return; // 避免重复点击
+    const handleTreeClick = (e) => {
+        e.preventDefault(); // 阻止默认行为，对移动设备很重要
+        
+        if (isPlaying) {
+            // 如果正在播放，则暂停
+            audio.pause();
+            isPlaying = false;
+            hintContainer.classList.remove('hide');
+            playHint.textContent = '请点击圣诞树！';
+            localStorage.setItem('christmas_music_playing', 'false');
+            return;
+        }
 
         try {
             // 确保每次点击时音乐从头开始播放
             audio.currentTime = 0;
             audio.volume = 0.7;
             audio.preload = 'auto';
+
+            // 使用Promise处理播放，兼容移动设备
+            const playPromise = audio.play();
             
-            // 立即播放，不使用Promise避免延迟
-            audio.play();
-            isPlaying = true;
-
-            // 更新UI和本地存储
-            hintContainer.classList.add('hide');
-            localStorage.setItem(PLAYED_FLAG, 'true');
-            // 更新全局音频管理器状态
-            localStorage.setItem('christmas_music_playing', 'true');
-            // 重置音乐播放位置
-            localStorage.setItem('christmas_music_time', '0');
-
-            // 修改点击动画：应用到图片而不是容器，避免位移
-            // 由于页面会立即跳转，点击动画实际上不会被用户看到，因此注释掉
-            /*
-            treeImg.style.transform = 'scale(1.05)';
-            setTimeout(() => {
-                treeImg.style.transform = 'scale(1)'; // 恢复原始大小
-            }, 200);
-            */
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isPlaying = true;
+                    console.log('播放成功');
+                    
+                    // 更新UI和本地存储
+                    hintContainer.classList.add('hide');
+                    localStorage.setItem(PLAYED_FLAG, 'true');
+                    // 更新全局音频管理器状态
+                    localStorage.setItem('christmas_music_playing', 'true');
+                    // 重置音乐播放位置
+                    localStorage.setItem('christmas_music_time', '0');
+                }).catch(err => {
+                    console.error('播放失败：', err);
+                    playHint.textContent = '播放失败，再点一次试试～';
+                    hintContainer.classList.remove('hide');
+                });
+            }
 
         } catch (err) {
             playHint.textContent = '播放失败，再点一次试试～';
@@ -87,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 6. 移除定期保存播放位置的逻辑，减少卡顿
     // 只在页面卸载前保存播放位置
-    
+
     // 7. 绑定事件
     christmasTree.addEventListener('click', handleTreeClick);
     audio.addEventListener('error', handleAudioError);
@@ -98,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('christmas_music_time', audio.currentTime.toString());
         }
     });
-    
+
     // 9. 初始化：尝试自动播放
     // 重置音乐播放位置，确保每次进入首页时音乐从头开始
     localStorage.setItem('christmas_music_time', '0');
