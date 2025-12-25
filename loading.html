@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+    <link rel="manifest" href="./favicon/site.webmanifest">
+    <link rel="stylesheet" href="./css/rudolph.css">
+    <style>
+        /* 圣诞背景图 */
+        .bg-img {
+            position: fixed;
+            /* 固定在窗口 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            /* 宽度占满窗口 */
+            height: 100%;
+            /* 高度占满窗口 */
+            object-fit: cover;
+            /* 保持比例，覆盖整个窗口 */
+            z-index: -1;
+            /* 放在内容下方，不遮挡文字 */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .title {
+            color: #fff;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                #ff0000,
+                #ff0000 10px,
+                #ffffff 10px,
+                #ffffff 20px,
+                #008000 20px,
+                #008000 30px
+            );
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            position: relative;
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 5px;
+        }
+        
+
+        
+
+        
+        /* 删除光条效果 */
+        
+        /* 删除shimmer动画 */
+
+        .progress-text {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            z-index: 9999;
+            user-select: none;
+            cursor: default;
+            animation: fall linear;
+            color: #fff;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        .christmas-icon {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.7;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .icon1 {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .icon2 {
+            top: 60%;
+            right: 15%;
+            animation-delay: 0.5s;
+        }
+
+        .icon3 {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(10deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景图片插入 -->
+    <img src="./img/stockvault-merry-christmas-background-with-blank-space-in-the-middle306744.jpg" alt="圣诞背景图"
+        class="bg-img">
+    
+    <div class="container">
+        <h1 class="title">正在准备圣诞惊喜...</h1>
+        <div class="progress-container" style="overflow: visible;">
+            <div class="progress-bar" id="progressBar">
+                <!-- Rudolph SVG图标 -->
+                <div class="rudolph-icon">
+                    <img src="./svg/rudolph.svg" width="40" height="40" alt="Rudolph">
+                </div>
+            </div>
+        </div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+    
+    <!-- 音频元素由index.html提供，这里不重复创建 -->
+
+    <div class="christmas-icon icon1">🎄</div>
+    <div class="christmas-icon icon2">🎅</div>
+    <div class="christmas-icon icon3">🎁</div>
+
+    <script>
+        // 创建雪花效果
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random() * window.innerWidth + 'px';
+            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+            snowflake.style.opacity = Math.random();
+            snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
+        }
+
+        // 定期创建雪花 - 增加频率
+        setInterval(createSnowflake, 100);
+
+        // 无缝音乐播放逻辑 - 兼容版本
+        // 检查是否已有音频元素
+        let bgAudio = document.getElementById('bg-audio');
+        
+        // 如果没有音频元素，则创建一个
+        if (!bgAudio) {
+            bgAudio = document.createElement('audio');
+            bgAudio.id = 'bg-audio';
+            bgAudio.src = './audio/Jingle-Bells-3(chosic.com).mp3';
+            bgAudio.loop = true;
+            bgAudio.volume = 0.7;
+            bgAudio.preload = 'auto';
+            document.body.appendChild(bgAudio);
+        }
+        
+        // 从localStorage恢复播放位置
+        const savedTime = localStorage.getItem('christmas_music_time');
+        if (savedTime) {
+            bgAudio.currentTime = parseFloat(savedTime);
+        }
+        
+        // 使用Promise处理播放，确保在GitHub Pages上正常工作
+        if (localStorage.getItem('christmas_music_playing') === 'true') {
+            const playPromise = bgAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(e => console.log('自动播放被浏览器阻止，需要用户交互', e));
+            }
+        }
+        
+        // 页面卸载前保存当前播放位置
+        window.addEventListener('beforeunload', () => {
+            if (bgAudio && !isNaN(bgAudio.currentTime)) {
+                localStorage.setItem('christmas_music_time', bgAudio.currentTime.toString());
+                localStorage.setItem('christmas_music_playing', !bgAudio.paused ? 'true' : 'false');
+            }
+        });
+        
+        // 进度条动画
+        let progress = 0;
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+
+        // 模拟加载进度
+        const interval = setInterval(() => {
+            progress += Math.random() * 15;
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(interval);
+
+                // 加载完成后跳转到目标页面
+                setTimeout(() => {
+                    window.location.href = './christmas-message.html';
+                }, 500);
+            }
+
+            progressBar.style.width = progress + '%';
+            progressText.textContent = Math.floor(progress) + '%';
+        }, 300);
+    </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merry Christmas!!!</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+    <link rel="manifest" href="./favicon/site.webmanifest">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-snowfall@1.7.4/dist/snowfall.jquery.min.js"></script>
+    <script src="./js/christmas-message.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            opacity: 1;
+        }
+
+        .christmas-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: bounce 2s ease-in-out infinite;
+            /* 持续循环跳动 */
+            transition: opacity 1s ease-out;
+            /* 添加淡出过渡效果 */
+        }
+        
+        .progress-container {
+            width: 80%;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                #ff0000,
+                #ff0000 10px,
+                #ffffff 10px,
+                #ffffff 20px,
+                #008000 20px,
+                #008000 30px
+            );
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            position: relative;
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 5px;
+        }
+
+        .christmas-icon {
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.8));
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .star-top,
+        .star-bottom {
+            font-size: 2rem;
+            color: #FFD700;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 1),
+                0 0 25px rgba(255, 215, 0, 0.8),
+                0 0 35px rgba(255, 215, 0, 0.6),
+                0 0 45px rgba(255, 215, 0, 0.4);
+        }
+
+        body .christmas-message {
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            transform: none !important;
+            text-align: center;
+            font-size: 2.8rem;
+            font-family: 'Georgia', serif;
+            z-index: 10;
+            line-height: 1.5;
+            color: #fff;
+            text-shadow:
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 30px #ff0000,
+                0 0 40px #ff0000,
+                2px 2px 2px #0f7938,
+                4px 4px 2px #0f7938,
+                6px 6px 2px #0f7938,
+                8px 8px 2px #0f7938,
+                10px 10px 2px #ffd700,
+                0 0 20px rgba(255, 215, 0, 1),
+                0 0 30px rgba(255, 215, 0, 0.8),
+                0 0 40px rgba(255, 215, 0, 0.6),
+                0 0 50px rgba(255, 215, 0, 0.4);
+            letter-spacing: 0.25em;
+            padding: 20px;
+            max-width: 90%;
+        }
+
+
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 背景图片插入 -->
+    <img src="./img/stockvault-merry-christmas-background-with-blank-space-in-the-middle306744.jpg" alt="圣诞背景图"
+        class="bg-img">
+
+    <!-- 圣诞祝福语 -->
+    <div class="christmas-container" id="christmasContainer" style="position: relative;">
+        <div class="star-top">★</div>
+        <div class="christmas-message">
+            Merry Christmas！<br>赵彦蘅同学，圣诞节快乐！
+        </div>
+        <div class="star-bottom">★</div>
+        <!-- 进度条 -->
+        <div class="progress-container" style="overflow: visible; width: 80%; margin-top: 20px;">
+            <div class="progress-bar" id="progressBar">
+                <!-- Christmas SVG图标 -->
+                <div class="christmas-icon">
+                    <img src="./svg/christmas.svg" width="40" height="40" alt="Christmas">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 音频元素 -->
+    <audio id="bg-audio" src="./audio/Jingle-Bells-3(chosic.com).mp3" loop></audio>
+
+    <!-- JavaScript代码已移至外部文件 -->
+
+
+            
+
+            
+
+            
+
+
+
+
+
+
+
+
+
+
+            
+
+
+            
+
+            
+
+
+                
+
+</body>
+
+</html>

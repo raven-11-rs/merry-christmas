@@ -1,0 +1,8 @@
+.christmas-icon {
+    position: fixed;
+    pointer-events: none;
+    user-select: none;
+    transform-origin: center;
+    /* 删除动画效果 */
+    animation: none;
+}

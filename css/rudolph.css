@@ -1,0 +1,30 @@
+/* 1. 给加载框添加定位上下文，允许内容溢出 */
+.progress-container {
+    position: relative;
+    /* 作为内部绝对定位元素的参考 */
+    overflow: visible;
+    /* 允许内容溢出显示，让Rudolph图标能够显示在容器外 */
+    height: 60px;
+    /* 增加高度以容纳完整的Rudolph图像 */
+}
+
+.progress-bar {
+    height: 60px;
+    /* 与容器高度一致 */
+    position: relative;
+    /* 作为Rudolph图标的定位参考 */
+}
+
+/* 2. 创建锚定系统，让Rudolph图标与进度条最右侧头部锚定 */
+.rudolph-icon {
+    position: absolute;
+    /* 相对于progress-bar定位 */
+    right: 20px;
+    top: 25%;
+    transform: translate(100%, -50%);
+    /* 水平向右移动100%自身宽度，垂直居中 */
+    z-index: 10;
+    /* 确保麋鹿显示在进度条上方 */
+    width: 40px;
+    height: 40px;
+}

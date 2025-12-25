@@ -1,0 +1,42 @@
+.hint-container.hide {
+    opacity: 0;
+}
+
+/* 点击提示容器 */
+.hint-container {
+    position: fixed;
+    left: 50%;
+    top: 150px;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.play-hint {
+    white-space: nowrap;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
+    font-weight: bold;
+    font-size: 30px;
+    margin: 0;
+}
+
+.music-icon {
+    width: 30px;
+    height: 30px;
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.8));
+    /* 模拟文字阴影效果 */
+    color: #fff;
+    margin-left: 5px;
+    /* 与文字保持一点间距 */
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-15px);
+    }
+}

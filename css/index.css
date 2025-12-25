@@ -1,0 +1,217 @@
+/* 圣诞背景图 */
+.bg-img {
+    position: fixed;
+    /* 固定在窗口 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* 宽度占满窗口 */
+    height: 100%;
+    /* 高度占满窗口 */
+    object-fit: cover;
+    /* 保持比例，覆盖整个窗口 */
+    z-index: -1;
+    /* 放在内容下方，不遮挡文字 */
+}
+
+body {
+    transition: opacity 0.5s ease;
+}
+
+/* 圣诞树 */
+
+.christmas-tree {
+    position: fixed;
+    left: 50%;
+    bottom: 25px;
+    transform: translateX(-50%);
+    display: inline-block;
+}
+
+.christmas-tree-img {
+    width: 100%;
+    /* 图片宽度=容器宽度 */
+    height: 100%;
+    /* 图片高度=容器高度 */
+    object-fit: contain;
+    /* 保持比例，完整显示（关键） */
+    display: block;
+    /* 去掉图片默认的行内间隙 */
+    cursor: pointer;
+    box-shadow: none;
+    transition: transform 0.3s ease;
+    /* 同时过渡放大+光圈，避免卡顿 */
+    transform: scale(1);
+}
+
+.christmas-tree-img:hover {
+    transform: scale(1.05);
+    /* 放大5% */
+    filter: url(#tree-glow);
+    /* 应用SVG轮廓光圈 */
+}
+
+
+
+
+/* 雪花飘落效果 */
+/* 雪花容器 */
+.snow-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    /* 不影响其他元素交互 */
+    z-index: 9999;
+    /* 确保在最上层 */
+}
+
+/* 雪花元素基础样式 */
+.snowflake {
+    position: absolute;
+    background-color: #fff;
+    border-radius: 50%;
+    /* 圆形雪花 */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    /* 发光效果 */
+    opacity: 0;
+}
+
+
+/* 祝福文字样式 */
+.christmas-message {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    opacity: 1;
+    /* 保持完全不透明 */
+    z-index: 10000;
+    pointer-events: none;
+    animation: floatUp 4s ease-in-out infinite;
+    /* 持续循环的动画 */
+    font-family: 'Georgia', serif;
+    color: #fff;
+    text-shadow:
+        0 0 10px #ff0000,
+        0 0 20px #ff0000,
+        0 0 30px #ff0000,
+        0 0 40px #ff0000,
+        2px 2px 2px #0f7938,
+        4px 4px 2px #0f7938,
+        6px 6px 2px #0f7938,
+        8px 8px 2px #0f7938,
+        10px 10px 2px #ffd700;
+    letter-spacing: 0.25em;
+    line-height: 1.5;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        transform: translate(-50%, -60%) scale(1.05);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+
+
+/* 添加闪烁效果 */
+@keyframes sparkle {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.christmas-message::before {
+    content: '★';
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    color: #ffd700;
+    animation: sparkle 1s ease-in-out infinite;
+}
+
+.christmas-message::after {
+    content: '★';
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    color: #ffd700;
+    animation: sparkle 1s ease-in-out infinite 0.5s;
+}
+
+
+/* 雪花下落动画 */
+
+/* 尾部著名favicon来源 
+
+.credit-link {
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    font-size: 12px;
+    color: lightgrey;
+    padding: 5px 8px;
+}
+
+.credit-link:hover {
+    cursor: pointer;
+}
+
+.text-underline .font-size-sm {
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    font-size: 12px;
+    color: lightgrey;
+    padding: 5px 8px;
+}
+
+*/
+
+/* 礼物下落效果 */
+.falling-gift {
+    position: fixed;
+    top: -10vh;
+    width: 50px;
+    height: 50px;
+    pointer-events: none;
+    z-index: 9998;
+    animation: fallDown 4s linear forwards;
+}
+
+@keyframes fallDown {
+    0% {
+        top: -10vh;
+        transform: rotate(0deg);
+    }
+
+    100% {
+        top: 110vh;
+        transform: rotate(360deg);
+    }
+}
+
+/* 礼物盒相关样式已删除，因为没有对应的HTML元素使用 */

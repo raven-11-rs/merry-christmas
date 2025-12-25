@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Christmas!!!</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/hint.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+    <link rel="manifest" href="./favicon/site.webmanifest">
+</head>
+
+<body>
+    <svg width="0" height="0">
+        <filter id="tree-glow" x="-20%" y="-20%" width="140%" height="140%">
+            <!-- 1. 增大模糊值（stdDeviation）让光圈更通透，8→10 -->
+            <feGaussianBlur in="SourceAlpha" stdDeviation="10" result="blur" />
+            <!-- 2. 调整参数：
+             - 透明度：0.8→1（完全不透明，最亮）
+             - 亮度：G=0.8→0.9，B=0.4→0.5（暖黄色更亮）
+        -->
+            <feColorMatrix in="blur" mode="matrix" values="0 0 0 0 1  0 0 0 0 0.9  0 0 0 0 0.5  0 0 0 1 0"
+                result="glow" />
+            <feComposite in="SourceGraphic" in2="glow" operator="over" />
+        </filter>
+
+    </svg>
+    <!-- 背景图片插入 -->
+    <img src="./img/stockvault-merry-christmas-background-with-blank-space-in-the-middle306744.jpg" alt="圣诞背景图"
+        class="bg-img">
+
+    <!-- 圣诞树图片插入 -->
+    <div class="christmas-tree" id="christmasTree">
+        <img src="./img/Christmas-tree-ai-lastest.png " alt="圣诞树" class="christmas-tree-img">
+    </div>
+
+    <!-- 点击提示 -->
+    <div class="hint-container">
+        <p class="play-hint">请点击圣诞树！</p>
+        <img class="music-icon" src="./svg/bell.svg" alt="music">
+    </div>
+
+    <audio id="bg-audio" src="./audio/Jingle-Bells-3(chosic.com).mp3" loop></audio>
+
+    <script src="./js/bgm.js"></script>
+
+    <script src="./js/index.js"></script>
+    
+    <!-- 全局音频管理器 -->
+    <script>
+        // 全局音频管理器，确保从首页跳转到第二页时音乐不中断
+        document.addEventListener('DOMContentLoaded', () => {
+            const audio = document.getElementById('bg-audio');
+            
+            // 重置音乐播放状态，确保每次进入首页时从头开始播放
+            localStorage.setItem('christmas_music_playing', 'false');
+            localStorage.setItem('christmas_music_time', '0');
+            audio.currentTime = 0;
+            
+            // 保存播放状态和时间
+            setInterval(() => {
+                if (!audio.paused) {
+                    localStorage.setItem('christmas_music_playing', 'true');
+                    localStorage.setItem('christmas_music_time', audio.currentTime.toString());
+                } else {
+                    localStorage.setItem('christmas_music_playing', 'false');
+                }
+            }, 1000);
+        });
+    </script>
+
+</body>
+
+
+
+
+<!-- 
+<footer class="footer">
+    <p>
+        <a href="https://www.flaticon.com/free-icons/christmas" class="credit-link" title="christmas icons">Christmas
+            icons created by
+            Freepik - Flaticon</a>
+    </p>
+</footer>
+ -->
+
+</html>
